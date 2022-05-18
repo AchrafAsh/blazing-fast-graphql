@@ -1,0 +1,39 @@
+scalar DateTime
+
+type Account {
+  id: ID!
+  displayName: String!
+  channelUrl: String!
+  subscribers: Int!
+  picture: String
+}
+
+type VideoStats {
+  likes: Int!
+  dislikes: Int!
+  views: Int!
+}
+
+type Video {
+  id: String!
+  thumbnail: String!
+  account: Account!
+  videoUri: String!
+  title: String!
+  description: String
+  publishedAt: DateTime!
+  stats: VideoStats
+  comments(limit: Int!): [Comment]
+  next(limit: Int!): [Video]
+}
+
+type Comment {
+  id: ID!
+  author: Account!
+  text: String!
+  publishedAt: DateTime!
+}
+
+type Query {
+  video(id: ID!): Video
+}
